@@ -1,0 +1,17 @@
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.25rem;
+}
+
+nav ul a {
+  padding: 1.25rem 1.875rem;
+  font-size: 1.25rem;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+nav ul a:hover {
+  color: #7e4847;
+}
