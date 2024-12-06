@@ -4,6 +4,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Journal from "./pages/Journal";
 import Layout from "./Layout";
+import Logout from "./pages/Logout";
+import Resources from "./pages/Resources";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ export const router = createBrowserRouter([
       {
         path: "/journal",
         element: <Journal />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
+      },
+      {
+        path: "/resources",
+        element: <Resources />,
       },
     ],
   },
