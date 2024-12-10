@@ -1,8 +1,17 @@
-const Home = () => {
-   return (
-    <h1>Welcome!</h1>
-   )
-   
-}
+import { useAuth } from "../AuthProvider";
 
-export default Home
+const Home = () => {
+  const user = useAuth();
+
+  return (
+    <div>
+      {user ? (
+        <h1>Welcome, {user.email}!</h1>
+      ) : (
+        <h1>Welcome to Dear Diary!</h1>
+      )}
+    </div>
+  );
+};
+
+export default Home;
