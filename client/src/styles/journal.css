@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f3efff;
+}
+
+h2 {
+    color: #6a1b9a; 
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Journal container */
+  .journal-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 1.875rem;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.375rem 1.25rem rgba(106, 27, 154, 0.1); 
+    border: 1px solid #e0d9f5;
+  }
+  
+  /* Form styling */
+  form {
+    margin: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.875rem;
+  }
+  
+  form div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 0.625rem;
+    color: #4a0072;
+  }
+  
+  input,
+  textarea {
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border: 2px solid #d1c4e9; 
+    border-radius: 0.5rem;
+    background-color: #faf7ff; 
+    color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus,
+  textarea:focus {
+    border-color: #6a1b9a;
+    background-color: #ffffff;
+    outline: none;
+  }
+  
+  button {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: #6a1b9a; 
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #4a0072; 
+  }
+  
+  /* Journal entries list */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .journal-entries {
+    background-color: #faf7ff; 
+    margin-bottom: 0.938rem;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    border: 1px solid #e0d9f5; 
+    box-shadow: 0 0.313rem 0.625rem rgba(106, 27, 154, 0.1);
+  }
+  
+  .journal-entries h3 {
+    margin: 0;
+    margin-bottom: 0.625rem;
+    /* color: #6a1b9a;  */
+  }
+  
+  .journal-entries p {
+    margin: 0.313rem 0;
+    /* color: #4a0072;  */
+  }
