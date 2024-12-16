@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import "../styles/journal.css"
 
 const Journal = () => {
   const user = useAuth();
@@ -76,7 +77,7 @@ const Journal = () => {
   };
 
   return (
-    <div>
+    <div className="journal-container">
       <h2>Welcome to your journal, {user.email}!</h2>
 
       <form onSubmit={handleSubmit}>
@@ -114,7 +115,7 @@ const Journal = () => {
 
       <ul>
         {entries.map((entry) => (
-          <li key={entry.id}>
+          <li className="journal-entries" key={entry.id}>
             <h3>{entry.title}</h3>
             <p>{entry.content}</p>
             <p>Mood: {entry.mood}</p>
