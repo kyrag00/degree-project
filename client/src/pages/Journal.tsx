@@ -181,7 +181,7 @@ const Journal = () => {
         {entries.map((entry) => (
           <li className="journal-entries" key={entry.id}>
             {editEntryId === entry.id ? (
-              <div>
+              <div className="edit-textfield">
                 <input
                   name="title"
                   value={editValues.title || ""}
