@@ -100,3 +100,9 @@ h2 {
     margin: 0.313rem 0;
     /* color: #4a0072;  */
   }
+
+.edit-textfield {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}

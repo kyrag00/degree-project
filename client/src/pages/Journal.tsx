@@ -1,8 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import "../styles/journal.css"
+import "../styles/journal.css";
 
 const Journal = () => {
   const user = useAuth();
@@ -18,6 +27,8 @@ const Journal = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [mood, setMood] = useState("");
+  const [editEntryId, setEditEntryId] = useState<string | null>(null);
+  const [editValues, setEditValues] = useState<Partial<IJournalEntries>>({});
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -76,6 +87,59 @@ const Journal = () => {
     }
   };
 
+  const handleDelete = async (entryId: string) => {
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      try {
+        await deleteDoc(doc(db, "JournalEntries", entryId));
+        setEntries((prevEntries) =>
+          prevEntries.filter((entry) => entry.id !== entryId)
+        );
+      } catch (error) {
+        console.error("Error deleting entry:", error);
+      }
+    }
+  };
+
+  const handleEdit = (entry: IJournalEntries) => {
+    setEditEntryId(entry.id); // the entry being edited
+    setEditValues(entry); 
+  };
+
+  const handleEditChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setEditValues((prev) => ({ ...prev, [name]: value })); 
+  };
+
+  const handleSave = async (entryId: string) => {
+    if (!user || !editValues) return;
+
+    try {
+      const updatedEntry = {
+        title: editValues.title || "",
+        content: editValues.content || "",
+        mood: editValues.mood || "",
+      };
+      await updateDoc(doc(db, "JournalEntries", entryId), updatedEntry);
+
+      setEntries((prevEntries) =>
+        prevEntries.map((entry) =>
+          entry.id === entryId ? { ...entry, ...updatedEntry } : entry
+        )
+      );
+
+      setEditEntryId(null); // exit edit mode
+    } catch (error) {
+      console.error("Error saving entry:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditEntryId(null); // exit edit mode without saving
+    setEditValues({});
+  };
+
   return (
     <div className="journal-container">
       <h2>Welcome to your journal, {user.email}!</h2>
@@ -116,9 +180,38 @@ const Journal = () => {
       <ul>
         {entries.map((entry) => (
           <li className="journal-entries" key={entry.id}>
-            <h3>{entry.title}</h3>
-            <p>{entry.content}</p>
-            <p>Mood: {entry.mood}</p>
+            {editEntryId === entry.id ? (
+              <div className="edit-textfield">
+                <input
+                  name="title"
+                  value={editValues.title || ""}
+                  onChange={handleEditChange}
+                  placeholder="Title"
+                />
+                <textarea
+                  name="content"
+                  value={editValues.content || ""}
+                  onChange={handleEditChange}
+                  placeholder="Content"
+                />
+                <input
+                  name="mood"
+                  value={editValues.mood || ""}
+                  onChange={handleEditChange}
+                  placeholder="Mood"
+                />
+                <button onClick={() => handleSave(entry.id)}>Save</button>
+                <button onClick={handleCancel}>Cancel</button>
+              </div>
+            ) : (
+              <div>
+                <h3>{entry.title}</h3>
+                <p>{entry.content}</p>
+                <p>Mood: {entry.mood}</p>
+                <button onClick={() => handleEdit(entry)}>Edit</button>
+                <button onClick={() => handleDelete(entry.id)}>Delete</button>
+              </div>
+            )}
           </li>
         ))}
       </ul>
