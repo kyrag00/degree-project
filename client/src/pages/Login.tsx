@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { fetchIdToken } from "../authHelper";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,9 +10,13 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const auth = getAuth();
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
+
+      const token = await fetchIdToken();
+      console.log("Fetched ID token: ", token);
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
