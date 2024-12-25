@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import { db } from "../firebaseConfig";
 import "../styles/journal.css";
+import { IJournalEntries } from "../interfaces/IJournalEntry";
+import {
+  fetchEntries,
+  addEntry,
+  updateEntry,
+  deleteEntry,
+} from "../journalAPI";
 
 const Journal = () => {
   const user = useAuth();
-
-  interface IJournalEntries {
-    id: string;
-    title: string;
-    content: string;
-    mood: string;
-  }
 
   const [entries, setEntries] = useState<IJournalEntries[]>([]);
   const [title, setTitle] = useState("");
@@ -31,28 +20,19 @@ const Journal = () => {
   const [editValues, setEditValues] = useState<Partial<IJournalEntries>>({});
 
   useEffect(() => {
-    const fetchEntries = async () => {
+    const fetchEntriesFromBackend = async () => {
       if (!user) return;
 
       try {
-        const q = query(
-          collection(db, "JournalEntries"),
-          where("userID", "==", user.uid)
-        );
-        const querySnapshot = await getDocs(q);
-        const fetchedEntries: IJournalEntries[] = querySnapshot.docs.map(
-          (doc) => ({
-            id: doc.id,
-            ...(doc.data() as Omit<IJournalEntries, "id">),
-          })
-        );
-        setEntries(fetchedEntries);
+        const token = await user.getIdToken();
+        const data = await fetchEntries(token);
+        setEntries(data);
       } catch (error) {
-        console.error("Error fetching journal entries:", error);
+        console.error("Error fetching journal entries: ", error);
       }
     };
 
-    fetchEntries();
+    fetchEntriesFromBackend();
   }, [user]);
 
   if (!user) {
@@ -69,15 +49,11 @@ const Journal = () => {
         title,
         content,
         mood,
-        userID: user.uid,
       };
 
-      const docRef = await addDoc(collection(db, "JournalEntries"), newEntry);
-
-      setEntries((prevEntries) => [
-        ...prevEntries,
-        { id: docRef.id, ...newEntry },
-      ]);
+      const token = await user.getIdToken();
+      const addedEntry = await addEntry(newEntry, token);
+      setEntries((prevEntries) => [...prevEntries, addedEntry]);
 
       setTitle("");
       setContent("");
@@ -90,7 +66,8 @@ const Journal = () => {
   const handleDelete = async (entryId: string) => {
     if (window.confirm("Are you sure you want to delete this entry?")) {
       try {
-        await deleteDoc(doc(db, "JournalEntries", entryId));
+        const token = await user.getIdToken();
+        await deleteEntry(entryId, token);
         setEntries((prevEntries) =>
           prevEntries.filter((entry) => entry.id !== entryId)
         );
@@ -102,14 +79,14 @@ const Journal = () => {
 
   const handleEdit = (entry: IJournalEntries) => {
     setEditEntryId(entry.id); // the entry being edited
-    setEditValues(entry); 
+    setEditValues(entry);
   };
 
   const handleEditChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setEditValues((prev) => ({ ...prev, [name]: value })); 
+    setEditValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSave = async (entryId: string) => {
@@ -121,7 +98,8 @@ const Journal = () => {
         content: editValues.content || "",
         mood: editValues.mood || "",
       };
-      await updateDoc(doc(db, "JournalEntries", entryId), updatedEntry);
+      const token = await user.getIdToken();
+      await updateEntry(entryId, updatedEntry, token);
 
       setEntries((prevEntries) =>
         prevEntries.map((entry) =>
