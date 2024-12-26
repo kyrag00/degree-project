@@ -1,4 +1,5 @@
 const { db } = require("../firebase");
+const {FieldValue} = require("firebase-admin/firestore")
 
 // Fetch entries
 const getEntries = async (req, res) => {
@@ -19,9 +20,11 @@ const getEntries = async (req, res) => {
 // Add entry
 const addEntry = async (req, res) => {
   try {
-    const newEntry = req.body;
+    const newEntry = {...req.body, createdAt: FieldValue.serverTimestamp()};
     const docRef = await db.collection("JournalEntries").add(newEntry);
-    res.json({ id: docRef.id, ...newEntry });
+    const savedEntry = await docRef.get()
+
+    res.json({ id: docRef.id, ...savedEntry.data() });
   } catch (error) {
     console.error("Error adding journal entry:", error);
     res.status(500).json({ error: "Failed to add entry" });
