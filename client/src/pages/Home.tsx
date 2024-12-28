@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       {user ? (
         <div>
-          <h1>Welcome, {user.email}!</h1>
+          <h1>Welcome, {user.firstName || user.email}!</h1>
           <RandomQuestion />
         </div>
       ) : (

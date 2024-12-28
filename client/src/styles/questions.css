@@ -16,7 +16,7 @@
   font-style: italic;
 }
 
-.random-question-container h2 strong {
+.random-question-container h2 strong, .random-question-container h2 {
   color: #3c085c;
 }
 

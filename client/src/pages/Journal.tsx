@@ -138,7 +138,7 @@ const Journal = () => {
 
   return (
     <div className="journal-container">
-      <h2>Welcome to your journal, {user.email}!</h2>
+      <h2>Welcome to your journal, {user.firstName || user.email}!</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
