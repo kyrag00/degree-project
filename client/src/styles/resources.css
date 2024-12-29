@@ -1,0 +1,54 @@
+.resources-page {
+    margin: 2rem;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
+  
+  .resources-page h2 {
+    font-size: 2rem;
+    color: #3c085c;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .resources-page section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .resources-page h3 {
+    font-size: 1.5rem;
+    color: #6a1b9a;
+    margin-bottom: 0.5rem;
+  }
+  
+  .resources-page ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .resources-page ul li {
+    margin-bottom: 1rem;
+  }
+  
+  .resources-page ul li strong {
+    font-weight: bold;
+  }
+  
+  .resources-page ul li a {
+    color: #4a0072;
+    text-decoration: none;
+  }
+  
+  .resources-page ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .resources-page p {
+    font-size: 1.2rem;
+    color: #4a0072;
+    text-align: center;
+    font-style: italic;
+  }
+  
