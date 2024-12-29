@@ -1,6 +1,7 @@
 import { useAuth } from "../AuthProvider";
 import RandomQuestion from "../weeklyQuestions";
 import "../styles/home.css";
+import MoodHistory from "../MoodHistory";
 
 const Home = () => {
   const user = useAuth();
@@ -11,6 +12,7 @@ const Home = () => {
         <div>
           <h1>Welcome, {user.firstName || user.email}!</h1>
           <RandomQuestion />
+          <MoodHistory />
         </div>
       ) : (
         <div className="home-container">
