@@ -8,6 +8,7 @@ import {
   updateEntry,
   deleteEntry,
 } from "../journalAPI";
+import { Timestamp } from "firebase/firestore";
 
 const Journal = () => {
   const user = useAuth();
@@ -49,6 +50,8 @@ const Journal = () => {
         title,
         content,
         mood,
+        createdAt: Timestamp.now(),
+        userID: user.uid,
       };
 
       const token = await user.getIdToken();
@@ -118,9 +121,24 @@ const Journal = () => {
     setEditValues({});
   };
 
+  const formatDate = (
+    createdAt: Timestamp | { _seconds: number; _nanoseconds: number }
+  ) => {
+    if (createdAt instanceof Timestamp) {
+      return createdAt.toDate().toLocaleDateString();
+    }
+
+    if (createdAt && createdAt._seconds) {
+      const date = new Date(createdAt._seconds * 1000);
+      return date.toLocaleDateString();
+    }
+
+    return "Unknown date";
+  };
+
   return (
     <div className="journal-container">
-      <h2>Welcome to your journal, {user.email}!</h2>
+      <h2>Welcome to your journal, {user.firstName || user.email}!</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -186,6 +204,12 @@ const Journal = () => {
                 <h3>{entry.title}</h3>
                 <p>{entry.content}</p>
                 <p>Mood: {entry.mood}</p>
+                <p>
+                  Date:{" "}
+                  {entry.createdAt
+                    ? formatDate(entry.createdAt)
+                    : "Unknown Date"}
+                </p>
                 <button onClick={() => handleEdit(entry)}>Edit</button>
                 <button onClick={() => handleDelete(entry.id)}>Delete</button>
               </div>
