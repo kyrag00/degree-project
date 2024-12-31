@@ -20,10 +20,65 @@ h1 {
   text-align: center;
   color: #6a1b9a;
   margin-bottom: 1.5rem;
+  font-size: 2rem;
 }
 
 p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #4a0072;
   margin-bottom: 1.5rem;
+}
+
+/* Larger screens */
+@media (min-width: 1200px) {
+  .home-container {
+    max-width: 70%;
+    padding: 3rem;
+    margin: 3rem auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+}
+
+/* Smaller screens */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin: 5rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+  .home-container {
+    max-width: 95%;
+    padding: 1rem;
+    margin: 1rem auto;
+    box-shadow: none;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
 }

@@ -59,3 +59,97 @@
   color: #888;
   margin-block-start: 1.25rem;
 }
+
+/* Large Screens (Min Width: 1200px) */
+@media (min-width: 1200px) {
+  .mood-container {
+    max-width: 60%;
+    padding: 2.5rem;
+    margin-block: 2.5rem;
+  }
+
+  .mood-container h3 {
+    font-size: 2rem;
+    margin-block-end: 1.5rem;
+  }
+
+  .mood-container li {
+    padding: 1.25rem;
+    margin-block-end: 1.25rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  }
+
+  .mood-container p {
+    font-size: 1.2rem;
+  }
+
+  .mood-container .mood {
+    font-size: 1.5rem;
+  }
+
+  .mood-container .empty-state {
+    font-size: 1.5rem;
+  }
+}
+
+/* Tablet/Mobile Screens  */
+@media (max-width: 768px) {
+  .mood-container {
+    max-width: 90%;
+    padding: 1.25rem;
+  }
+
+  .mood-container h3 {
+    font-size: 1.25rem;
+    margin-block-end: 1rem;
+  }
+
+  .mood-container li {
+    padding: 0.75rem;
+    margin-block-end: 0.75rem;
+  }
+
+  .mood-container p {
+    font-size: 0.9rem;
+  }
+
+  .mood-container .mood {
+    font-size: 1.1rem;
+  }
+}
+
+/* Small Mobile Screens */
+@media (max-width: 480px) {
+  .mood-container {
+    max-width: 95%;
+    padding: 1rem;
+    margin-block: 1rem;
+  }
+
+  .mood-container h3 {
+    font-size: 1.1rem;
+    margin-block-end: 0.75rem;
+  }
+
+  .mood-container li {
+    padding: 0.5rem;
+    margin-block-end: 0.5rem;
+  }
+
+  .mood-container p {
+    font-size: 0.85rem;
+  }
+
+  .mood-container .mood {
+    font-size: 1rem;
+  }
+
+  .mood-container .empty-state {
+    font-size: 1rem;
+    margin-block-start: 1rem;
+  }
+
+  .mood-container li {
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
+  }
+}
