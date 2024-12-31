@@ -5,6 +5,8 @@ nav {
   position: sticky;
   top: 0;
   z-index: 1000;
+  /* background-color: #8a45b648; */
+  background-color: #e0d9f5;
 }
 
 nav ul {
@@ -37,15 +39,51 @@ nav ul {
   color: #ffffff;
 }
 
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.menu-toggle div {
+  width: 25px;
+  height: 3px;
+  background-color: #6a1b9a;
+  transition: all 0.3s ease;
+}
+
+/* When the menu is active, add the hamburger icon */
+.menu-toggle.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    display: none;
+  }
+
+  nav ul.active {
+    display: flex;
   }
 
   .nav-link {
     padding: 0.75rem 1.5rem;
+  }
+
+  .menu-toggle {
+    display: flex;
   }
 }

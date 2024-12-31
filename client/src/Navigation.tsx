@@ -6,6 +6,7 @@ import { handleLogout } from "./pages/Logout";
 
 const Navigation = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -14,9 +15,19 @@ const Navigation = () => {
     });
     return () => loggedOut();
   }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <nav>
-      <ul>
+      <div className="menu-toggle" onClick={toggleMenu}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul className={isMenuOpen ? "active" : ""}>
         <li>
           <NavLink className="nav-link" to="/">
             Home
