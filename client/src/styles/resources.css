@@ -4,6 +4,9 @@
     background-color: #f9f9f9;
     border-radius: 0.5rem;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    max-width: 75rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .resources-page h2 {
@@ -52,3 +55,51 @@
     font-style: italic;
   }
   
+
+@media (max-width: 768px) {
+    .resources-page {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+  
+    .resources-page h2 {
+      font-size: 1.5rem; 
+      margin-bottom: 1rem;
+    }
+  
+    .resources-page h3 {
+      font-size: 1.2rem; 
+    }
+  
+    .resources-page p {
+      font-size: 1rem; 
+    }
+  
+    .resources-page ul li {
+      margin-bottom: 0.8rem; 
+    }
+  }
+
+  @media (max-width: 480px) {
+    .resources-page {
+      margin: 0.5rem;
+      padding: 1rem;
+    }
+  
+    .resources-page h2 {
+      font-size: 1.3rem; 
+      margin-bottom: 0.75rem;
+    }
+  
+    .resources-page h3 {
+      font-size: 1rem;
+    }
+  
+    .resources-page p {
+      font-size: 0.9rem;
+    }
+  
+    .resources-page ul li {
+      margin-bottom: 0.5rem;
+    }
+  }
