@@ -2,31 +2,25 @@ import { useAuth } from "../AuthProvider";
 import RandomQuestion from "../weeklyQuestions";
 import "../styles/home.css";
 import MoodHistory from "../MoodHistory";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
+  const { t } = useTranslation();
   const user = useAuth();
 
   return (
     <div>
       {user ? (
         <div>
-          <h1>Welcome, {user.firstName || user.email}!</h1>
+          <h1>{t("welcome", { name: user.firstName || user.email })}</h1>
           <RandomQuestion />
           <MoodHistory />
         </div>
       ) : (
         <div className="home-container">
-          <h1>Welcome to Dear Diary!</h1>
-          <p>
-            Dear Diary is your personal space to reflect, record, and grow.
-            Whether you're jotting down daily thoughts, tracking your mood, or
-            exploring our weekly questions, this is your safe space to be
-            yourself.
-          </p>
-          <p>
-            Start by exploring your journal or let our weekly prompts inspire
-            your next entry. Remember, this is your journey—make it yours!
-          </p>
+          <h1>{t("welcome_dear_diary")}</h1>
+          <p>{t("intro_paragraph_1")}</p>
+          <p>{t("intro_paragraph_2")}</p>
         </div>
       )}
     </div>

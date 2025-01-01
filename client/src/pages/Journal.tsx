@@ -9,9 +9,11 @@ import {
   deleteEntry,
 } from "../journalAPI";
 import { Timestamp } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const Journal = () => {
   const user = useAuth();
+  const { t } = useTranslation();
 
   const [entries, setEntries] = useState<IJournalEntries[]>([]);
   const [title, setTitle] = useState("");
@@ -29,15 +31,15 @@ const Journal = () => {
         const data = await fetchEntries(token);
         setEntries(data);
       } catch (error) {
-        console.error("Error fetching journal entries: ", error);
+        console.error(t("journal.errorFetchingEntries"), error);
       }
     };
 
     fetchEntriesFromBackend();
-  }, [user]);
+  }, [user, t]);
 
   if (!user) {
-    return <h2>Please log in to view your journal.</h2>;
+    return <h2>{t("journal.pleaseLogIn")}</h2>;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,12 +64,12 @@ const Journal = () => {
       setContent("");
       setMood("");
     } catch (error) {
-      console.error("Error adding journal entry:", error);
+      console.error(t("journal.errorAddingEntry"), error);
     }
   };
 
   const handleDelete = async (entryId: string) => {
-    if (window.confirm("Are you sure you want to delete this entry?")) {
+    if (window.confirm(t("journal.confirmDelete"))) {
       try {
         const token = await user.getIdToken();
         await deleteEntry(entryId, token);
@@ -75,7 +77,7 @@ const Journal = () => {
           prevEntries.filter((entry) => entry.id !== entryId)
         );
       } catch (error) {
-        console.error("Error deleting entry:", error);
+        console.error(t("journal.errorDeletingEntry"), error);
       }
     }
   };
@@ -112,7 +114,7 @@ const Journal = () => {
 
       setEditEntryId(null); // exit edit mode
     } catch (error) {
-      console.error("Error saving entry:", error);
+      console.error(t("journal.errorSavingEntry"), error);
     }
   };
 
@@ -133,16 +135,18 @@ const Journal = () => {
       return date.toLocaleDateString();
     }
 
-    return "Unknown date";
+    return t("journal.unknownDate");
   };
 
   return (
     <div className="journal-container">
-      <h2>Welcome to your journal, {user.firstName || user.email}!</h2>
+      <h2>
+        {t("journal.welcomeMessage", { name: user.firstName || user.email })}
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">{t("journal.title")}</label>
           <input
             id="title"
             type="text"
@@ -152,7 +156,7 @@ const Journal = () => {
           />
         </div>
         <div>
-          <label htmlFor="content">Content:</label>
+          <label htmlFor="content">{t("journal.content")}</label>
           <textarea
             id="content"
             value={content}
@@ -161,7 +165,7 @@ const Journal = () => {
           />
         </div>
         <div>
-          <label htmlFor="mood">Mood:</label>
+          <label htmlFor="mood">{t("journal.mood")}</label>
           <input
             id="mood"
             type="text"
@@ -170,7 +174,7 @@ const Journal = () => {
             required
           />
         </div>
-        <button type="submit">Add Entry</button>
+        <button type="submit">{t("journal.addEntry")}</button>
       </form>
 
       <ul>
@@ -182,36 +186,44 @@ const Journal = () => {
                   name="title"
                   value={editValues.title || ""}
                   onChange={handleEditChange}
-                  placeholder="Title"
+                  placeholder={t("journal.placeholderTitle")}
                 />
                 <textarea
                   name="content"
                   value={editValues.content || ""}
                   onChange={handleEditChange}
-                  placeholder="Content"
+                  placeholder={t("journal.placeholderContent")}
                 />
                 <input
                   name="mood"
                   value={editValues.mood || ""}
                   onChange={handleEditChange}
-                  placeholder="Mood"
+                  placeholder={t("journal.placeholderMood")}
                 />
-                <button onClick={() => handleSave(entry.id)}>Save</button>
-                <button onClick={handleCancel}>Cancel</button>
+                <button onClick={() => handleSave(entry.id)}>
+                  {t("journal.save")}
+                </button>
+                <button onClick={handleCancel}>{t("journal.cancel")}</button>
               </div>
             ) : (
               <div>
                 <h3>{entry.title}</h3>
                 <p>{entry.content}</p>
-                <p>Mood: {entry.mood}</p>
                 <p>
-                  Date:{" "}
+                  {t("journal.mood")}: {entry.mood}
+                </p>
+                <p>
+                  {t("journal.date")}{" "}
                   {entry.createdAt
                     ? formatDate(entry.createdAt)
-                    : "Unknown Date"}
+                    : t("journal.unknownDate")}
                 </p>
-                <button onClick={() => handleEdit(entry)}>Edit</button>
-                <button onClick={() => handleDelete(entry.id)}>Delete</button>
+                <button onClick={() => handleEdit(entry)}>
+                  {t("journal.edit")}
+                </button>
+                <button onClick={() => handleDelete(entry.id)}>
+                  {t("journal.delete")}
+                </button>
               </div>
             )}
           </li>

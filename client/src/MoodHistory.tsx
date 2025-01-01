@@ -4,10 +4,12 @@ import { IJournalEntries } from "./interfaces/IJournalEntry";
 import { fetchEntries } from "./journalAPI";
 import { Timestamp } from "firebase/firestore";
 import "./styles/moods.css";
+import { useTranslation } from "react-i18next";
 
 const MoodHistory = () => {
   const user = useAuth();
   const [moodHistory, setMoodHistory] = useState<IJournalEntries[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchMoodHistory = async () => {
@@ -52,12 +54,12 @@ const MoodHistory = () => {
       return date.toLocaleDateString();
     }
 
-    return "Unknown date";
+    return t("moodHistory.unknownDate");
   };
 
   return (
     <div className="mood-container">
-      <h3>Your Mood History</h3>
+      <h3>{t("moodHistory.title")}</h3>
       <div>
         {moodHistory.length > 0 ? (
           <ul>
@@ -67,7 +69,7 @@ const MoodHistory = () => {
                   <strong>
                     {entry.createdAt
                       ? formatDate(entry.createdAt)
-                      : "Unknown Date"}
+                      : t("moodHistory.unknownDate")}
                   </strong>
                   <span className="mood">: {entry.mood}</span>
                 </p>
@@ -75,9 +77,7 @@ const MoodHistory = () => {
             ))}
           </ul>
         ) : (
-          <p className="empty-state">
-            No moods logged yet. Start tracking today!
-          </p>
+          <p className="empty-state">{t("moodHistory.emptyState")}</p>
         )}
       </div>
     </div>
