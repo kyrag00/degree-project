@@ -3,10 +3,12 @@ import "./styles/navigation.css";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { handleLogout } from "./pages/Logout";
+import { useTranslation } from "react-i18next";
 
 const Navigation = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const auth = getAuth();
@@ -30,17 +32,17 @@ const Navigation = () => {
       <ul className={isMenuOpen ? "active" : ""}>
         <li>
           <NavLink className="nav-link" to="/">
-            Home
+            {t("navigation.home")}
           </NavLink>
         </li>
         <li>
           <NavLink className="nav-link" to="/journal">
-            Journal
+            {t("navigation.journal")}
           </NavLink>
         </li>
         <li>
           <NavLink className="nav-link" to="/resources">
-            Resources
+            {t("navigation.resources")}
           </NavLink>
         </li>
         {user ? (
@@ -53,19 +55,19 @@ const Navigation = () => {
                 handleLogout();
               }}
             >
-              Logout
+              {t("navigation.logout")}
             </NavLink>
           </li>
         ) : (
           <>
             <li>
               <NavLink className="nav-link" to="/login">
-                Login
+                {t("navigation.login")}
               </NavLink>
             </li>
             <li>
               <NavLink className="nav-link" to="/signup">
-                Sign Up
+                {t("navigation.signup")}
               </NavLink>
             </li>
           </>
