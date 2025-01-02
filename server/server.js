@@ -8,7 +8,7 @@ const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const allowedOrigins = [
-  "http://localhost:5173", // local development
+  // "http://localhost:5173",  local development
   "https://degree-project-dadd0.web.app", // deployed Firebase app
 ];
 
