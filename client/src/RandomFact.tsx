@@ -26,6 +26,8 @@ const RandomFacts = () => {
     <div className="random-fact-container">
       <h2>Are you interested in a random fact? (only available in english)</h2>
       <p>{loading ? "Loading your random fact..." : fact}</p>
+      <h5 className="credit-api">Data provided by: Useless Facts API</h5>
+
       <button onClick={fetchRandomFacts}>Show Me Another Random fact</button>
     </div>
   );

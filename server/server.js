@@ -35,7 +35,7 @@ app.get("/api/randomfact", async (req, res) => {
     }
 
     const data = await response.json();
-    console.log("Fetched data:", data);
+    // console.log("Fetched data:", data);
 
     res.json(data);
   } catch (error) {
