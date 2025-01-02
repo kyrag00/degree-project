@@ -1,13 +1,14 @@
 import axios from "axios";
 import { IJournalEntries } from "./interfaces/IJournalEntry";
 
-const API_BASE_URL = "https://digital-diary-dd759bbb7354.herokuapp.com/journal"; //For local developement : /localhost:3000/journal
+// Set the base URL globally for all axios requests
+axios.defaults.baseURL = 'https://digital-diary-dd759bbb7354.herokuapp.com';
 
 // Fetch all journal entries
 export const fetchEntries = async (
   token: string
 ): Promise<IJournalEntries[]> => {
-  const response = await axios.get(API_BASE_URL, {
+  const response = await axios.get("/journal", { 
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
@@ -18,7 +19,7 @@ export const addEntry = async (
   entry: Omit<IJournalEntries, "id">,
   token: string
 ): Promise<IJournalEntries> => {
-  const response = await axios.post(API_BASE_URL, entry, {
+  const response = await axios.post("/journal", entry, { 
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
@@ -30,7 +31,7 @@ export const updateEntry = async (
   entry: Partial<Omit<IJournalEntries, "id">>,
   token: string
 ): Promise<IJournalEntries> => {
-  const response = await axios.put(`${API_BASE_URL}/${id}`, entry, {
+  const response = await axios.put(`/journal/${id}`, entry, { 
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
@@ -38,7 +39,7 @@ export const updateEntry = async (
 
 // Delete a journal entry
 export const deleteEntry = async (id: string, token: string): Promise<void> => {
-  await axios.delete(`${API_BASE_URL}/${id}`, {
+  await axios.delete(`/journal/${id}`, { 
     headers: { Authorization: `Bearer ${token}` },
   });
 };
