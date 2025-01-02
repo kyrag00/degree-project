@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IJournalEntries } from "./interfaces/IJournalEntry";
 
-const API_BASE_URL = "http://localhost:3000/journal";
+const API_BASE_URL = "https://digital-diary-dd759bbb7354.herokuapp.com/journal"; //For local developement : http://localhost:3000/journal
 
 // Fetch all journal entries
 export const fetchEntries = async (

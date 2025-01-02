@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/randomfact", async (req, res) => {
+  console.log("Request received at /api/randomfact");
   try {
     console.log("Fetching from Useless Facts API...");
 
@@ -44,5 +45,5 @@ app.get("/api/randomfact", async (req, res) => {
   }
 });
 
-const PORT = 3000;
-app.listen(PORT, () => console.log("Server is running..."));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));

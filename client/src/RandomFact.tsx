@@ -8,7 +8,9 @@ const RandomFacts = () => {
   const fetchRandomFacts = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/randomfact");
+      const response = await fetch(
+        "https://digital-diary-dd759bbb7354.herokuapp.com/api/randomfact"
+      );
       const data = await response.json();
       setFact(data.text);
     } catch (error) {
