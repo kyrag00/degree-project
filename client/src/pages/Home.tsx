@@ -3,6 +3,7 @@ import RandomQuestion from "../weeklyQuestions";
 import "../styles/home.css";
 import MoodHistory from "../MoodHistory";
 import { useTranslation } from "react-i18next";
+import RandomFact from "../RandomFact";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ const Home = () => {
           <h1>{t("welcome", { name: user.firstName || user.email })}</h1>
           <RandomQuestion />
           <MoodHistory />
+          <RandomFact />
         </div>
       ) : (
         <div className="home-container">

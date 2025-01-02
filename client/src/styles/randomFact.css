@@ -1,0 +1,85 @@
+.random-fact-container {
+  margin: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.random-fact-container h2 {
+  font-size: 2rem;
+  color: #3c085c;
+  margin-bottom: 1.5rem;
+}
+
+.random-fact-container p {
+  font-size: 1.2rem;
+  color: #4a0072;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.random-fact-container button {
+  padding: 0.8rem 1.5rem;
+  background-color: #6a1b9a;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.random-fact-container button:hover {
+  background-color: #4a0072;
+}
+
+.random-fact-container button:active {
+  background-color: #6a1b9a;
+}
+
+@media (max-width: 768px) {
+  .random-fact-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .random-fact-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .random-fact-container p {
+    font-size: 1rem;
+  }
+
+  .random-fact-container button {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+.credit-api {
+  color: grey;
+}
+
+@media (max-width: 480px) {
+  .random-fact-container {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .random-fact-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .random-fact-container p {
+    font-size: 0.9rem;
+  }
+
+  .random-fact-container button {
+    padding: 0.5rem 1rem;
+  }
+}
