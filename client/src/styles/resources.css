@@ -40,8 +40,9 @@
   }
   
   .resources-page ul li a {
-    color: #4a0072;
+    color: #3c085c;
     text-decoration: none;
+    font-weight: bold;
   }
   
   .resources-page ul li a:hover {

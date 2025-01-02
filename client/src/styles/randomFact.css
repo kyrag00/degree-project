@@ -16,7 +16,7 @@
   margin-bottom: 1.5rem;
 }
 
-.random-fact-container p {
+.random-fact-container h3 {
   font-size: 1.2rem;
   color: #4a0072;
   font-style: italic;
@@ -52,7 +52,7 @@
     font-size: 1.5rem;
   }
 
-  .random-fact-container p {
+  .random-fact-container h3 {
     font-size: 1rem;
   }
 
@@ -62,7 +62,8 @@
 }
 
 .credit-api {
-  color: grey;
+  color: #454444;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 480px) {
@@ -75,8 +76,12 @@
     font-size: 1.3rem;
   }
 
-  .random-fact-container p {
+  .random-fact-container h3 {
     font-size: 0.9rem;
+  }
+
+  .credit-api {
+    font-size: 0.7rem;
   }
 
   .random-fact-container button {
